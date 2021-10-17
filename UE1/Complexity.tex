@@ -1,0 +1,186 @@
+\documentclass[12pt,letterpaper]{article}
+\title{\"Ubung 1}
+\author{Shehata}
+\date{}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{makecell, booktabs, caption}
+\usepackage[german]{babel}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{titlesec}
+\usepackage{makecell, booktabs, caption}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{subfiles}
+\usepackage{import}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\renewcommand\theadfont{\normalsize\bfseries}
+\renewcommand{\familydefault}{\sfdefault}
+\vspace{6pt}
+
+\begin{document}
+\maketitle
+\section{Entfaltung + Beweisen}
+
+\subsection{Lösen Sie folgende Rekurrenz mittels Entfaltung:}
+
+\begin{align*}
+    T(1) & = 2                                            \\
+    T(n) & = T(\frac{n}{3}) + 3 \quad \text{for n}\geq  2
+\end{align*}
+
+\paragraph{Resultat:}
+\begin{align*}
+    T(n) & = T(\frac{n}{3}) + 3                                         & i = 1 \\
+    T(n) & = (T((\frac{\frac{n}{3}}{3}) + 3) + 3 = T(\frac{n}{9}) + 6   & i = 2 \\
+    T(n) & = (T(\frac{\frac{n}{3}}{9}) + 6) + 3 = T(\frac{n}{27}) + 9   & i = 3 \\
+    T(n) & = (T(\frac{\frac{n}{3}}{27}) + 9) + 3 = T(\frac{n}{81}) + 12 & i = 4 \\
+         & T(\frac{n}{3^{i}}) + 3i
+\end{align*}
+
+\begin{align*}
+    3^{i}    & = n                       & / \log     \\
+    i\log(3) & = \log(n)                 & / :\log(3) \\
+    i        & = \frac{\log(n)}{\log(3)} &            \\
+    i        & = \log_3(n)               &
+\end{align*}
+
+\begin{align*}
+     & 3\log_3(n) + T(\frac{n}{3^{\log_3(n)}})                                \\
+     & 3\log_3(n) + T(\frac{n}{3^{\log_3(n)}}) & 3^{\log_3(n)} \Rightarrow  n \\
+     & 3\log_3(n) + T(\frac{n}{n})             & T(1) \Rightarrow  2          \\
+     & 3\log_3(n) + 2
+\end{align*}
+
+
+\subsection{Um welche Art von Algorithmus handelt es sich hier? Interpretieren Sie die Rekurrenz}
+
+\subsection{Beweisen Sie (mittels Raten und Beweisen), dass Ihr Ergebnis aus 1.a) richtig ist}
+\begin{align*}
+    T(1) = 3\log_3(1) + 2 = 3 \times 0 + 2 = 2
+\end{align*}
+
+
+\section{Master Theorem}
+Lösen Sie folgende Rekurrenzen mit Hilfe des Master-Theorems:
+\begin{enumerate}[label=(\alph*)]
+    \item $T(n) = 4 T(\frac{n}{2}) + 2n^2 + 4n$
+    \item $T(n) = 27 T(\frac{n}{3}) + n \log(n)$
+    \item $T(n) = 8 T(\frac{n}{2}) + \frac{n^8}{2} - 2n$
+\end{enumerate}
+Geben Sie immer den Lösungsweg an und überprüfen Sie für den Fall, dass
+$f(n) = \Omega(n^{log_b(a + \varepsilon)})$ für $\varepsilon > 0$ (Fall 3), auch die Zusatzbedingung.
+
+\pagebreak
+\subsection*{a)}
+$a = 4;\quad b = 2$ \\
+$f(n) =  2n^2 + 4n$ \\
+$\log_b(a) = \log_2(4) = 2$
+\begin{enumerate}
+    \item \begin{align*}
+              f(n)      & = O(n^{\log_b(a) - \varepsilon})                               \\
+              2n^2 + 4n & = O(n^{2 - \varepsilon})         & \rightarrow \text{Sum-Rule} \\
+              2n^2      & \leq O(n^{2 - \varepsilon})                                    \\
+              \text{Ist für } \varepsilon > 0 \text{ immer kleiner, also falsch}
+          \end{align*}
+    \item \begin{align*}
+              k         & = 0                                                    \\
+              f(n)      & = \Theta(n^{2\log^k(n)})                               \\
+              2n^2 + 4n & = \Theta(n^2)            & \rightarrow \text{Sum-Rule} \\
+              2n^2      & = \Theta(n^2)                                          \\
+              \text{Es wächst gleich schnell, also korrekt}
+          \end{align*}
+\end{enumerate}
+\paragraph{Ergebnis:}
+$ \Theta(n \log_b(a)\log^{k+1}(n)) = \Theta(n^2 \log^1(n)) = \Theta(n^2 \log(n))$
+
+
+\subsection*{b)}
+$a = 27;\quad b = 3$ \\
+$f(n) =  n \log(n)$
+$\log_b(a) = \log_3(27) = 9$
+\begin{enumerate}
+    \item \begin{align*}
+              f(n)      & = O(n^{\log_3(27) - \varepsilon})                               \\
+              n \log(n) & = O(n^{9 - \varepsilon})          & \rightarrow \text{Sum-Rule} \\
+              n \log(n) & \leq O(n^{9 - \varepsilon})                                     \\
+              \rightarrow \text{Es wächst schneller für } \varepsilon = 1
+          \end{align*}
+\end{enumerate}
+\paragraph{Ergebnis:}
+$ \Theta(n^9)$
+
+\subsection*{c)}
+$a = 8;\quad b = 2$ \\
+$f(n) =  \frac{n^8}{2} - 2n$ \\
+$\log_b(a) = \log_2(8) = 3$
+\begin{enumerate}
+    \item \begin{align*}
+              f(n)               & = O(n^{\log_2(8) - \varepsilon})                               \\
+              \frac{n^8}{2} - 2n & = O(n^{3 - \varepsilon})         & \rightarrow \text{Sum-Rule} \\
+              \frac{n^8}{2}      & \leq O(n^{3 - \varepsilon})                                    \\
+              \text{Ist für } \varepsilon > 0 \text{ immer kleiner, also falsch}
+          \end{align*}
+    \item \begin{align*}
+              k                  & = 0                                                    \\
+              f(n)               & = \Theta(n^{3\log^k(n)})                               \\
+              \frac{n^8}{2} - 2n & = \Theta(n^3)            & \rightarrow \text{Sum-Rule} \\
+              \frac{n^8}{2}      & = \Theta(n^3)                                          \\
+              \text{Es wächst immer noch langsamer}
+          \end{align*}
+    \item \begin{align*}
+              f(n)               & = \Omega(n^{\log_2(8) + \varepsilon})                               \\
+              \frac{n^8}{2} - 2n & = \Omega(n^{3 + \varepsilon})         & \rightarrow \text{Sum-Rule} \\
+              \frac{n^8}{2}      & \geq \Omega(n^{3 + \varepsilon})                                    \\
+              \text{Die Aussage stimmt von } 0 < \varepsilon < 8
+          \end{align*}
+\end{enumerate}
+\paragraph{Zusatzbedingung}
+\begin{align}
+    a f(\frac{n}{b})             & \leq c f(n)          \\
+    8(\frac{\frac{n}{2}}{2})^{8} & \leq c \frac{n^8}{2} \\
+    8(\frac{n}{4})^{8}           & \leq c \frac{n^8}{2} \\
+    8\frac{n^8}{4^8}             & \leq c \frac{n^8}{2} \\
+    8\frac{1}{4^8}               & \leq c \frac{1}{2}   \\
+    \frac{8}{4^8}                & \leq \frac{c}{2}     \\
+\end{align}
+% n^{10}\frac{8}{2^{10}}       & \leq c               \\
+% n^{10}\frac{8}{2^{10}}       &                      \\
+
+
+\paragraph{Ergebnis:}
+$ \Theta(n^9)$
+
+\end{document}
