@@ -1,5 +1,6 @@
 #ifndef LISTNODE_HPP_
 #define LISTNODE_HPP_
+
 class ListNode
 {
 public:

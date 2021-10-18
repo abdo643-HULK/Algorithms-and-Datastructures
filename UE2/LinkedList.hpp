@@ -4,7 +4,8 @@
 #include <iostream>
 #include "ListNode.hpp"
 
-class LinkedList {
+class LinkedList
+{
     unsigned int listSize;
     ListNode *head;
     ListNode *penultimate; // Das vorletzte Element für removeLast Geschwindigkeit
@@ -58,24 +59,23 @@ public:
     int removeLast();
 
     /**
-     * returns  element  at  position  index,
-     * @param index
-     * @return -1  if  index  is  out  of  bounds
+     * returns  element  at  position  index
+     * @param index - 0 or bigger
+     * @return  element  value, -1  if  index  is  out  of  bounds
      */
     int getAt(int index);
 
     /**
-     * remove  element  at  position  index  and  returns  element  value,
-     * -1  if  index  is  out  of  bounds
+     * remove  element  at  position  index
      * @param index - 0 or bigger
-     * @return
+     * @return  element  value, -1  if  index  is  out  of  bounds
      */
     int removeAt(int index);
 
     /**
      * Checks if the list contains a certain value
      *
-     * @param value
+     * @param value 
      * @return true if value in the list, else false
      */
     bool contains(int value);
