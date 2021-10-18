@@ -87,6 +87,8 @@
 
 \subsection{Um welche Art von Algorithmus handelt es sich hier? Interpretieren Sie die Rekurrenz}
 
+Die Rekursion drittelt mit jedem Aufruf die Datenmenge und f(n) ist immer 3.
+
 \subsection{Beweisen Sie (mittels Raten und Beweisen), dass Ihr Ergebnis aus 1.a) richtig ist}
 \paragraph{Assumption („wild guess“):}
 $T(n) = 3 \log_3(n) + 2$
@@ -144,17 +146,17 @@ $ \Theta(n \log_b(a)\log^{k+1}(n)) = \Theta(n^2 \log^1(n)) = \Theta(n^2 \log(n))
 \subsection*{b)}
 $a = 27;\quad b = 3$ \\
 $f(n) =  n \log(n)$
-$\log_b(a) = \log_3(27) = 9$
+$\log_b(a) = \log_3(27) = 3$
 \begin{enumerate}
     \item \begin{align*}
               f(n)      & = O(n^{\log_3(27) - \varepsilon}) \\
-              n \log(n) & = O(n^{9 - \varepsilon})          \\
-              n \log(n) & \leq O(n^{9 - \varepsilon})       \\
+              n \log(n) & = O(n^{3 - \varepsilon})          \\
+              n \log(n) & \leq O(n^{3 - \varepsilon})       \\
               \rightarrow \text{Es wächst schneller für } \varepsilon = 1
           \end{align*}
 \end{enumerate}
 \paragraph{Ergebnis:}
-$ \Theta(n^9)$
+$ \Theta(n^3)$
 
 \subsection*{c)}
 $a = 8;\quad b = 2$ \\
@@ -178,17 +180,17 @@ $\log_b(a) = \log_2(8) = 3$
               f(n)               & = \Omega(n^{\log_2(8) + \varepsilon})                               \\
               \frac{n^8}{2} - 2n & = \Omega(n^{3 + \varepsilon})         & \rightarrow \text{Sum-Rule} \\
               \frac{n^8}{2}      & \geq \Omega(n^{3 + \varepsilon})                                    \\
-              \text{Die Aussage stimmt von } 0 < \varepsilon < 8
+              \text{Die Aussage stimmt von } 0 < \varepsilon < 5
           \end{align*}
 \end{enumerate}
 \paragraph{Zusatzbedingung}
 \begin{align}
     a f(\frac{n}{b})             & \leq c f(n)          \\
-    8(\frac{\frac{n}{2}}{2})^{8} & \leq c \frac{n^8}{2} \\
-    8(\frac{n}{4})^{8}           & \leq c \frac{n^8}{2} \\
-    8\frac{n^8}{4^8}             & \leq c \frac{n^8}{2} \\
-    8\frac{1}{4^8}               & \leq c \frac{1}{2}   \\
-    \frac{8}{4^8}                & \leq \frac{c}{2}     \\
+    8(\frac{\frac{n}{2} - 2n}{2})^{8} & \leq c \frac{n^8}{2} - 2n \\
+    8(\frac{n}{4})^{8}           & \leq c \frac{n^8}{2} - 2n \\
+    8\frac{n^8}{4^8}             & \leq c \frac{n^8}{2} - 2n \\
+    8\frac{1}{4^8}               & \leq c \frac{1}{2} - 2n   \\
+    \frac{8}{4^8}                & \leq \frac{c}{2} - 2n    \\
 \end{align}
 % n^{10}\frac{8}{2^{10}}       & \leq c               \\
 % n^{10}\frac{8}{2^{10}}       &                      \\
