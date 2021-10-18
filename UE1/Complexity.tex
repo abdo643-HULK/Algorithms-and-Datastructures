@@ -185,18 +185,19 @@ $\log_b(a) = \log_2(8) = 3$
 \end{enumerate}
 \paragraph{Zusatzbedingung}
 \begin{align}
-    a f(\frac{n}{b})             & \leq c f(n)          \\
-    8(\frac{\frac{n}{2} - 2n}{2})^{8} & \leq c \frac{n^8}{2} - 2n \\
-    8(\frac{n}{4})^{8}           & \leq c \frac{n^8}{2} - 2n \\
-    8\frac{n^8}{4^8}             & \leq c \frac{n^8}{2} - 2n \\
-    8\frac{1}{4^8}               & \leq c \frac{1}{2} - 2n   \\
-    \frac{8}{4^8}                & \leq \frac{c}{2} - 2n    \\
+    a f(\frac{n}{b})                              & \leq c f(n)               \\
+    8(\frac{(\frac{n}{2})^8}{2}  - \frac{2n}{2} ) & \leq c \frac{n^8}{2} - 2n \\
+    8(\frac{\frac{n^8}{2^8}}{2}  - n )            & \leq c \frac{n^8}{2} - 2n \\
+    8(\frac{n^8}{2^9}  - n )                      & \leq c \frac{n^8}{2} - 2n \\
+    \frac{8n^8}{8*2^9}  - 8n                      & \leq c \frac{n^8}{2} - 2n \\
+    \frac{n^8}{2^9}  - 8n                         & \leq c \frac{n^8}{2} - 2n \\
+    \frac{n^8}{2^9}                               & \leq c \frac{n^8}{2}      \\
 \end{align}
-% n^{10}\frac{8}{2^{10}}       & \leq c               \\
-% n^{10}\frac{8}{2^{10}}       &                      \\
-
+% 8\frac{n^8}{4^8}                   & \leq c \frac{n^8}{2} - 2n \\
+% 8\frac{1}{4^8}                     & \leq c \frac{1}{2} - 2n   \\
+% \frac{8}{4^8}                      & \leq \frac{c}{2} - 2n     \\
 
 \paragraph{Ergebnis:}
-$ \Theta(n^9)$
+$ \Theta(n^8)$
 
 \end{document}
