@@ -8,7 +8,6 @@ class LinkedList
 {
     unsigned int listSize;
     ListNode *head;
-    ListNode *penultimate; // Das vorletzte Element für removeLast Geschwindigkeit
     ListNode *tail;
 
 public:

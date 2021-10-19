@@ -10,7 +10,6 @@ LinkedList::LinkedList() {
     listSize = 0;
     head = nullptr;
     tail = nullptr;
-    penultimate = nullptr;
 }
 
 int LinkedList::size() {
@@ -18,11 +17,13 @@ int LinkedList::size() {
 }
 
 int LinkedList::getFirst() {
-    return head->element;
+    if (head != nullptr) return head->element;
+    return -1;
 }
 
 int LinkedList::getLast() {
-    return tail->element;
+    if (tail != nullptr) return tail->element;
+    return -1;
 }
 
 void LinkedList::addFirst(int data) {
@@ -34,9 +35,8 @@ void LinkedList::addFirst(int data) {
 
 void LinkedList::addLast(int data) {
     ++listSize;
-    penultimate = tail;
-    ListNode *const newNode = new ListNode(data, nullptr);
-    // newNode->next = nullptr;
+    ListNode *const newNode = new ListNode(data);
+    tail->next = newNode;
     tail = newNode;
 }
 
@@ -44,8 +44,8 @@ int LinkedList::removeFirst() {
     if (listSize == 0)
         return -1;
     --listSize;
+    const int value = head->element;
     const auto tmpNode = head; // ListNode *const
-    const int value = tmpNode->element;
     head = tmpNode->next;
     delete tmpNode;
     return value;
@@ -55,10 +55,15 @@ int LinkedList::removeLast() {
     if (listSize == 0)
         return -1;
     --listSize;
-    const auto tmpNode = head; // ListNode *const
-    const int value = tmpNode->element;
-    head = tmpNode->next;
-    delete tmpNode;
+    const int value = tail->element;
+    const ListNode *current = head;
+
+    while (current->next != nullptr) {
+        current = current->next;
+    }
+
+    delete tail;
+    tail = (ListNode *)current; // ListNode *const
     return value;
 }
 
@@ -127,6 +132,7 @@ void LinkedList::sortASC() {
         }
 
         current = current->next;
+        if (current != nullptr && current->next == nullptr) tail = current;
     }
 }
 
@@ -152,6 +158,7 @@ void LinkedList::sortDES() {
         }
 
         current = current->next;
+        if (current != nullptr && current->next == nullptr) tail = current;
     }
 }
 
@@ -163,13 +170,18 @@ void LinkedList::printElements() {
         return;
     }
 
-    while (current != nullptr) {
-        cout << current->element << "\n";
+    cout << "List: ";
+
+    while (current->next != nullptr) {
+        cout << current->element << ",";
         current = current->next;
     }
+
+    cout << current->element << "\n";
 }
 
 void LinkedList::clear() {
+    if (head == nullptr || listSize == 0) return;
     const ListNode *current = head;
     const ListNode *next = current->next;
     while (current->next != nullptr) {
@@ -177,8 +189,12 @@ void LinkedList::clear() {
         current = next;
         next = current->next;
     }
+    head = nullptr;
+    tail = nullptr;
+    listSize = 0;
 }
 
 LinkedList::~LinkedList() {
+    cout << "Destructor called" << "\n";
     clear();
 }
