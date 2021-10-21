@@ -14,10 +14,14 @@ int main()
     list->addFirst(7);
     list->addFirst(8);
 
+    cout << "Value from RemoveAt: " << list->removeAt(2) << "\n";
+
     cout << "Size: " << list->size() << "\n";
 
+    list->printElements();
+
     const int index = 2;
-    cout << "GetAt " << index << ": " << list->getAt(index) << "\n";
+    cout << "GetAt(" << index << "): " << list->getAt(index) << "\n";
 
     const int searchedValue = 5;
     const string contains = list->contains(searchedValue) ? "yes" : "no";
@@ -35,6 +39,7 @@ int main()
     cout << "Tail: " << list->getLast() << "\n";
 
     list->addLast(55);
+    list->addSorted(35);
 
     cout << "Size: " << list->size() << "\n";
 
@@ -45,13 +50,14 @@ int main()
     #else
         cout << "\n" << "\e[1m" << "After Clear: " << "\e[0m" << "\n";
     #endif
-    list->clear();
+    //list->clear();
 
     cout << "Head: " << list->getFirst() << "\n";
     cout << "Tail: " << list->getLast() << "\n";
     cout << "Size: " << list->size() << "\n";
 
-    list->printElements();
+    cout << "Value from removeFirst: " << list->removeFirst() << "\n";
+    cout << "Value from removeLast: " << list->removeLast() << "\n";
 
     delete list;
     return 0;

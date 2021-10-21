@@ -6,69 +6,98 @@
 
 using namespace std;
 
+// O(1)
 LinkedList::LinkedList() {
     listSize = 0;
     head = nullptr;
     tail = nullptr;
 }
 
+// O(1)
 int LinkedList::size() {
     return listSize;
 }
 
+// O(1)
 int LinkedList::getFirst() {
     if (head != nullptr) return head->element;
     return -1;
 }
 
+// O(1)
 int LinkedList::getLast() {
     if (tail != nullptr) return tail->element;
     return -1;
 }
 
+// O(1)
 void LinkedList::addFirst(int data) {
-    ++listSize;
     ListNode *const newNode = new ListNode(data, head);
-    // newNode->next = head;
     head = newNode;
+    if (listSize == 0) tail = newNode;
+    ++listSize;
 }
 
+// O(1)
 void LinkedList::addLast(int data) {
-    ++listSize;
     ListNode *const newNode = new ListNode(data);
+    if (listSize == 0) {
+        head = newNode;
+        tail = newNode;
+        return;
+    }
     tail->next = newNode;
     tail = newNode;
+    ++listSize;
 }
 
+// O(1)
 int LinkedList::removeFirst() {
     if (listSize == 0)
         return -1;
-    --listSize;
     const int value = head->element;
+    --listSize;
+    if (listSize == 0) {
+        delete head;
+        head = nullptr;
+        tail = nullptr;
+        return value;
+    }
     const auto tmpNode = head; // ListNode *const
     head = tmpNode->next;
     delete tmpNode;
     return value;
 }
 
+// O(n)
 int LinkedList::removeLast() {
     if (listSize == 0)
         return -1;
-    --listSize;
     const int value = tail->element;
-    const ListNode *current = head;
+    --listSize;
+    if (listSize == 0) {
+        delete head;
+        head = nullptr;
+        tail = nullptr;
+        return value;
+    }
 
-    while (current->next != nullptr) {
+    const ListNode *current = head;
+    while (current->next->next != nullptr) {
         current = current->next;
     }
 
     delete tail;
-    tail = (ListNode *)current; // ListNode *const
+    tail = (ListNode *) current; // ListNode *const
+    tail->next = nullptr;
+
     return value;
 }
 
+// O(n)
 int LinkedList::getAt(int index) {
-    if (index > listSize - 1 || index < 0)
+    if (listSize == 0) return -1;
+    if (index < 0 || index > listSize - 1)
         return -1;
     auto current = head;
     for (int i = 0; i < index; ++i) {
@@ -78,23 +107,33 @@ int LinkedList::getAt(int index) {
     return current->element;
 }
 
+// O(n)
 int LinkedList::removeAt(int index) {
-    if (index > listSize - 1 || index < 0)
+    if (listSize == 0) return -1;
+    if (index < 0 || index > listSize - 1)
         return -1;
+
+    if (index == 0) return removeFirst();
+    if (index == listSize - 1) return removeLast();
 
     auto current = head;
 
-    for (int i = 0; i < index; ++i) {
+    for (int i = 0; i < index - 1 ; ++i) {
         current = current->next;
     }
 
     const int value = current->element;
+    const auto newNext = current->next->next;
+    const auto toDelete= current->next;
 
-    delete current;
+    current->next = newNext;
+
+    delete toDelete;
 
     return value;
 }
 
+// O(n)
 bool LinkedList::contains(int value) {
     auto current = head;
     while (current != nullptr && value != current->element) {
@@ -106,10 +145,18 @@ bool LinkedList::contains(int value) {
     return false;
 }
 
+// O(1)
 void LinkedList::addSorted(int val) {
-    sortASC();
+    // In der Angabe steht nicht, ob ich es
+    // am Anfang oder in der richtigen Position
+    // oder am Ende einfügen soll.
+    // Nur dass es in eine sortierte Liste
+    // einfügen soll
+    sortASC(); // O(n^2)
+    addFirst(val);
 }
 
+// O(n^2)
 void LinkedList::sortASC() {
     if (listSize == 0)
         return;
@@ -136,6 +183,7 @@ void LinkedList::sortASC() {
     }
 }
 
+// O(n^2)
 void LinkedList::sortDES() {
     if (listSize == 0)
         return;
@@ -162,6 +210,7 @@ void LinkedList::sortDES() {
     }
 }
 
+// O(n)
 void LinkedList::printElements() {
     const ListNode *current = head;
     if (head == nullptr) {
@@ -180,6 +229,7 @@ void LinkedList::printElements() {
     cout << current->element << "\n";
 }
 
+// O(n)
 void LinkedList::clear() {
     if (head == nullptr || listSize == 0) return;
     const ListNode *current = head;
@@ -194,7 +244,9 @@ void LinkedList::clear() {
     listSize = 0;
 }
 
+// O(1)
 LinkedList::~LinkedList() {
     cout << "Destructor called" << "\n";
-    clear();
+    printElements(); // O(n)
+    clear(); // O(n)
 }
