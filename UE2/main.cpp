@@ -38,6 +38,8 @@ int main()
     cout << "Head: " << list->getFirst() << "\n";
     cout << "Tail: " << list->getLast() << "\n";
 
+    list->clear();
+
     list->addLast(55);
     list->addSorted(35);
 
