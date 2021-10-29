@@ -7,11 +7,19 @@
 
 #include <string>
 #include <limits>
-#include <iterator>
 #include <algorithm>
-
+#include <exception>
+#include <iostream>
 
 using namespace std;
+
+// From rust and swift where all types
+// don't have "_t"
+using int8 = int8_t;
+using int16 = int16_t;
+using int32 = int32_t;
+using int64 = int64_t;
+
 
 class MinHeap {
 private:
@@ -30,6 +38,8 @@ private:
     int rightChild(int index);
 
     void swap(int index1, int index2);
+
+    int8 resizeHeap();
 
 public:
     MinHeap(int initCapacity);
