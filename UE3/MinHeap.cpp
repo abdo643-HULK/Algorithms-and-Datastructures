@@ -10,25 +10,25 @@
 
 int MinHeap::parent(int index) {
     const int idx = (int) (index - 1) / 2;
-    if (idx < 0 || idx > nrElements - 1) return -1;
+    if (idx < 0 || idx >= nrElements) return -1;
     return idx;
 }
 
 int MinHeap::leftChild(int index) {
     const int idx = 2 * index + 1;
-    if (idx < 0 || idx > nrElements - 1) return -1;
+    if (idx < 0 || idx >= nrElements) return -1;
     return idx;
 }
 
 
 int MinHeap::rightChild(int index) {
     const int idx = 2 * index + 2;
-    if (idx < 0 || idx > nrElements - 1) return -1;
+    if (idx < 0 || idx >= nrElements) return -1;
     return idx;
 }
 
 void MinHeap::upHeap(int index) {
-    while ((nrElements >= 0) && (heap[index] < heap[parent(index)])) {
+    while ((nrElements >= 0) && parent(index) != -1 && (heap[index] < heap[parent(index)])) {
         swap(index, parent(index));
         index = parent(index);
     }
