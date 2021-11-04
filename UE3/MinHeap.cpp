@@ -93,8 +93,8 @@ void MinHeap::swap(int index1, int index2) {
 int8 MinHeap::resizeHeap() {
     try {
         cout << "resizing Heap" << "\n";
-        const auto newHeap = new int[heapCapacity * 2];
-        heapCapacity = heapCapacity * 2;
+        const auto newHeap = new int[heapCapacity *= 2];
+//        heapCapacity = heapCapacity * 2;
 
         // vom Michi das Ok bekommen copy zu nutzen
 
