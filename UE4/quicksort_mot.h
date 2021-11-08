@@ -5,8 +5,6 @@
 #ifndef UE3_QUICKSORT_MOT_H
 #define UE3_QUICKSORT_MOT_H
 
-#include <iostream>
-
 void quicksort_mot(int array[], int size, int left, int right);
 
 #endif //UE3_QUICKSORT_MOT_H
