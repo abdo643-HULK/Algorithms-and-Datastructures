@@ -175,6 +175,18 @@ string MinHeap::toString() {
     return heapString;
 }
 
+string MinHeap::arrayString() {
+    string heapString;
+
+    // Because a heap is filled from left to right
+    // we can break early if a branch is not there
+    for (int i = 0; i < nrElements; ++i) {
+        heapString.append(to_string(heap[i]) + " ");
+    }
+
+    return heapString;
+}
+
 MinHeap::~MinHeap() {
     printf("MinHeap Destructor called");
     delete[] heap;

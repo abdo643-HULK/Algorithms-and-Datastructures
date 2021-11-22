@@ -80,6 +80,8 @@ public:
      */
     string toString();
 
+    string arrayString();
+
     ~MinHeap();
 };
 

@@ -8,16 +8,33 @@ int main() {
 
     MinHeap heap(20);
 
-
+    heap.insert(12);
     heap.insert(5);
-    heap.insert(3);
-    heap.insert(19);
-    heap.insert(10);
-    heap.insert(88);
-    heap.insert(16);
-    heap.insert(6);
-    heap.insert(22);
+    heap.insert(15);
     heap.insert(8);
+    heap.insert(53);
+    heap.insert(74);
+    heap.insert(35);
+    heap.insert(76);
+    heap.insert(4);
+    heap.insert(26);
+    heap.insert(7);
+    heap.insert(62);
+    heap.insert(7);
+    heap.insert(85);
+    heap.insert(25);
+    heap.insert(24);
+    heap.insert(75);
+    heap.insert(38);
+    heap.insert(8);
+    heap.insert(26);
+    heap.insert(77);
+    heap.insert(9);
+    heap.insert(5);
+    heap.insert(4);
+
+//    4 5 4 8 5 7 25 24 8 26 7 15 62 85 35 76 75 38 12 53 77 26 9 74
+    cout << heap.arrayString() << end;
 
 
 
