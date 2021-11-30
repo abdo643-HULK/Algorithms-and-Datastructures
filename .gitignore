@@ -7,4 +7,5 @@
 *.bin
 *.make
 *.cmake
+*.zip
 cmake-build-debug/
