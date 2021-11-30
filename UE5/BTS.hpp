@@ -146,10 +146,7 @@ class BST {
 	void insertElement(K key, V value) {
 		const auto newNode = new Node(key, value);
 
-		if (root == nullptr) {
-			root = newNode;
-			return;
-		}
+		if (root == nullptr) return root = newNode;
 
 		auto current = root;
 
