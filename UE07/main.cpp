@@ -10,6 +10,7 @@ void printBoolean(bool value) {
 }
 
 int main() {
+    cout << "-------------- ChainingHashset ----------------" << "\n";
     ChainingHashset set(5);
 
     set.insert(1);
@@ -30,11 +31,20 @@ int main() {
     cout << "size: " << set.size() << "\n";
 
     cout << "-------------- OrderedHashSet ----------------" << "\n";
-    OrderedDoubleHashset doubleHashset(5);
+    OrderedDoubleHashset doubleHashset(7);
+    doubleHashset.insert(15);
+    doubleHashset.insert(2);
+    doubleHashset.insert(43);
+    doubleHashset.insert(4);
+    doubleHashset.insert(18);
 
-    cout << (doubleHashset.insert(5) ? "true" : "false") << "\n";
+    doubleHashset.insert(21);
 
-    printBoolean(doubleHashset.contains(5));
+    cout << doubleHashset << "\n";
+
+    doubleHashset.remove(18);
+
+    cout << doubleHashset << "\n";
 
     cout << endl;
     return 0;

@@ -1,0 +1,25 @@
+
+;cpp:CommentedCode`"Remove the commented out code.(”ÀŸÀ
+Acpp:CommentedCode¦"Remove the commented out code.(Ÿ‰ãÿÿÿÿÿ
+Acpp:CommentedCode«"Remove the commented out code.(›Æµÿÿÿÿÿ
+2	cpp:S1481¥"unused variable 'index'(¥ÿÿÿÿÿ
+%	cpp:S3518"Division by zero(¾Î¯”
+;cpp:CommentedCode`"Remove the commented out code.(”ÀŸÀ
+Acpp:CommentedCode¦"Remove the commented out code.(Ÿ‰ãÿÿÿÿÿ
+Acpp:CommentedCode«"Remove the commented out code.(›Æµÿÿÿÿÿ
+2	cpp:S1481¥"unused variable 'index'(¥ÿÿÿÿÿ
+6	cpp:S1003"Remove this using-directive.(ÉÔ³òÿÿÿÿÿ
+Ù	cpp:S3624"ÃExplicitly define or delete the missing copy constructor so that it will not be implicitly provided. Additionally, you may consider defining the move assignment operator and the move constructor.(¼ş–Ü
+^	cpp:S4963"IRemove this class' destructor so that the class follows the rule of Zero.(¼ş–Ü
+>	cpp:S5817")This function should be declared "const".(®ÖçØ
+C	cpp:S5817)")This function should be declared "const".( –Üõşÿÿÿÿ
+z	cpp:S3230O"eDo not assign data members in a constructor. Initialize member "hashTable" in an initialization list.(ø¸á
+f	cpp:S5025O"QReplace the use of "new" with an operation that automatically manages the memory.(ø¸á
+k	cpp:S5025S"QReplace the use of "new" with an operation that automatically manages the memory.(©å˜‡ûÿÿÿÿ
+>	cpp:S5817X")This function should be declared "const".(ÕìÂ
+D	cpp:S5817™")This function should be declared "const".(ÜõÒÓûÿÿÿÿ
+U	cpp:S5025¿":Rewrite the code so that you no longer need this "delete".(È¯´Ëşÿÿÿÿ
+O	cpp:S5025½":Rewrite the code so that you no longer need this "delete".(àÖ
+Œcpp:S995Å"rMake the type of this parameter a reference-to-const. The current type of "chs" is "class OrderedDoubleHashset &".(êÊéüÿÿÿÿ
+†	cpp:S3230N"qDo not use the constructor's initializer list for data member "nrElements". Use the in-class initializer instead.(´Üµ‹
+Z	cpp:S1854¥"?Value stored to 'index' during its initialization is never read(¥ÿÿÿÿÿ
