@@ -5,11 +5,23 @@
 #ifndef UE8_BRUTEFORCE_HPP
 #define UE8_BRUTEFORCE_HPP
 
+#include <fstream>
+#include <streambuf>
+#include <chrono>
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <utility>
 
 class BruteForce {
+    const std::string pattern;
+    std::string text;
+
 public:
-    BruteForce(string pattern, string text);
+    BruteForce(std::string  pattern, std::string  text);
+
     ~BruteForce();
+
     int Match(int startIndex);
 };
 

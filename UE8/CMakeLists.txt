@@ -1,11 +1,13 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.21)
 project(UE8)
 
 set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
 
-add_executable(UE8
+add_executable(
+        UE8
         main.cpp
-        BoyerMoore.cpp
-        BoyerMoore.hpp)
+        BruteForce.cpp BruteForce.hpp
+        BoyerMoore.cpp BoyerMoore.hpp
+)
