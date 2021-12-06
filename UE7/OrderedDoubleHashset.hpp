@@ -157,10 +157,11 @@ public:
 
         if (key <= current->element && current->isDeleted) {
             return false;
-        } else if (key == current->element && !current->isDeleted) {
-            return true;
         }
 
+        if (key == current->element && !current->isDeleted) {
+            return true;
+        }
 
         int index = hash1;
         const int hash2 = h2(key);
