@@ -71,6 +71,15 @@ public:
 
         const int hash = hashCode(key);
         auto current = hashTable[hash];
+
+        if (current && current->element == key) {
+            --nrElements;
+            const auto next = current->next;
+            delete current;
+            hashTable[hash] = next;
+            return true;
+        }
+
         while (current != nullptr) {
             if (current->next && current->next->element == key) {
                 --nrElements;
