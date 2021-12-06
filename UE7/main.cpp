@@ -46,6 +46,10 @@ int main() {
 
     cout << doubleHashset << "\n";
 
+    doubleHashset.clear();
+
+    cout << doubleHashset << "\n";
+
     cout << endl;
     return 0;
 }

@@ -181,12 +181,17 @@ public:
         nrElements = 0;
         for (int i = 0; i < capacity; ++i) {
             delete hashTable[i];
+            hashTable[i] = new OrderedNode();
         }
-        delete[] hashTable;
     }
 
     // Deallocate memory for the chained nodes and the array
-    ~OrderedDoubleHashset() { clear(); }
+    ~OrderedDoubleHashset() {
+        for (int i = 0; i < capacity; ++i) {
+            delete hashTable[i];
+        }
+        delete[] hashTable;
+    }
 
     friend std::ostream &operator<<(std::ostream &os, OrderedDoubleHashset &chs) {
         for (int i = 0; i < chs.capacity; ++i) {
