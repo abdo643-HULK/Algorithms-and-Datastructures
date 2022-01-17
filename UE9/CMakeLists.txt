@@ -1,16 +1,12 @@
-# This file handles building each task as sub-project.
-#
-# Each task becomes an independent project in which you can experiment.
-#
-# Tasks are added as separate sub-projects so as compilation errors in
-# one task don't affect another task.
-
-3.20
+cmake_minimum_required(VERSION 3.21)
 project(UE9)
 
-set(CMAKE_CXX_STANDARD )
+set(CMAKE_CXX_STANDARD 14)
 
+include_directories(.)
 
-# Add tasks subprojects
-include(cmake/utils.cmake)
-add_subprojects(${CMAKE_SOURCE_DIR})
+add_executable(
+        UE9
+        main.cpp main.hpp
+        Graph.cpp Graph.hpp
+)
