@@ -13,28 +13,7 @@
 #include <string>
 #include <tuple>
 
-struct MyVertex {
-    // gets automatically initialized with an empty string
-    const std::string name;
-
-    MyVertex() = default;
-
-    explicit MyVertex(std::string _name) : name(std::move(_name)) {}
-
-    inline bool operator==(const MyVertex &rhs) const {
-        return name == rhs.name;
-    }
-
-    inline bool operator!=(const MyVertex &rhs) const {
-        return !(*this == rhs);
-    }
-
-    friend std::ostream &operator<<(std::ostream &os, const MyVertex &p) {
-        os << "Vertex[" << p.name << "]";
-        return os;
-    }
-};
-
+#include "MyVertex.hpp"
 
 static constexpr char const *enum_str[] = {"White", "Gray", "Black"};
 
@@ -76,7 +55,7 @@ public:
     Graph();
 
     /* Fügt neuen Knoten v in den Graphen ein und liefert seinen Index
-    im Knotenvector oder -1, wenn der Knoten bereits eingefügt ist */
+    im Knotenvektor oder -1, wenn der Knoten bereits eingefügt ist */
     int insertVertex(MyVertex v);
 
     /* Fügt eine ungerichtete Kante mit dem Gewicht weight zwischen den

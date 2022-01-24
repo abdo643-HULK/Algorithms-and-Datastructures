@@ -9,4 +9,4 @@ add_executable(
         UE9
         main.cpp main.hpp
         Graph.cpp Graph.hpp
-)
+        MyVertex.hpp)
