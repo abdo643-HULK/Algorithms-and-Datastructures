@@ -8,4 +8,6 @@
 #include <iostream>
 #include "Graph.hpp"
 
+void externalTest();
+
 #endif //UE9_MAIN_HPP
