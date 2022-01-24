@@ -1,6 +1,6 @@
-mod list;
+mod ex2;
 
-use list::{LinkedList, List};
+use ex2::{LinkedList, List};
 
 fn main() {
     let mut l = LinkedList::new();

@@ -75,7 +75,7 @@ bool Graph::insertEdge(MyVertex in, MyVertex out, int weight) {
     insertVertex(out);
 
     const auto it = find_if(edges.begin(), edges.end(), [&](const Edge &edge) {
-        return edge.in == in && edge.out == out || edge.in == out && edge.out == in;
+        return edge.in == in && edge.out == out;
     });
 
     if (it != edges.end()) return false;
@@ -131,70 +131,48 @@ vector<MyVertex> Graph::getAdjacentVertices(const MyVertex &in) {
     return list;
 }
 
-bool Graph::isConnected() {
-    vector<Color> colors(vertices.size(), WHITE);
+void Graph::shortestPathDijkstra(MyVertex source) {
+    set<MyVertex> S;
+    vector<MyVertex> P(vertices);
 
-    size_t idx = 0;
-    for (const auto &v: vertices) {
-        if (colorOfVertex(v, colors) != WHITE) continue;
-//        const auto count = get<0>(DFSVisit(v, colors, idx));
-        const auto count = DFSVisit(idx, v, colors);
-        if (vertices.size() < count) return false;
-    }
+    priority_queue<PQElement> Q;
+    Q.push(PQElement(source, 0));
 
-    return true;
-}
+    vector<int> D(vertices.size(), numeric_limits<int>::max());
+    const auto sourceIdx = find(vertices.begin(), vertices.end(), source) - vertices.begin();
+    D[sourceIdx] = 0;
 
-bool Graph::isCyclic() {
-    vector<Color> colors(vertices.size(), WHITE);
+    while (!Q.empty()) {
+        const auto u = Q.top().vertex;
+        Q.pop();
+//        cout << u << "\n";
 
-    for (const auto &v: vertices) {
-        if (colorOfVertex(v, colors) != WHITE) continue;
-        if (DFSVisit(v, colors, false)) return true;
-    }
+        S.insert(u);
+        const auto idxU = find(vertices.begin(), vertices.end(), u) - vertices.begin();
 
-//    bool isCyc = false;
-//    for (const auto &v: vertices) {
-//        isCyc = get<1>(DFSVisit(v, colors, 0, isCyc));
-//        if (isCyc) return true;
-//    }
+        for (const auto &v: getAdjacentVertices(u)) {
+            const auto idxV = find(vertices.begin(), vertices.end(), v) - vertices.begin();
+            const auto distance = D[idxU] + getEdgeWeight(u, v);
 
-    return false;
-}
+            cout << idxV << ": " << v << "\n";
 
-int Graph::getNumberOfComponents() {
-    // Color every vertex white (unvisited)
-    vector<Color> colors(vertices.size(), WHITE);
-
-    int connectedComponents = 0;
-    for (const auto &v: vertices) {
-        if (colorOfVertex(v, colors) != WHITE) continue;
-
-        DFSVisit(0, v, colors);
-        ++connectedComponents;
-    }
-
-    return connectedComponents;
-}
-
-void Graph::printComponents() {
-    vector<Color> colors(vertices.size(), WHITE);
-
-    size_t idx = 0;
-    for (const auto &v: vertices) {
-        if (colorOfVertex(v, colors) != WHITE) continue;
-
-//        const auto count = get<0>(DFSVisit(v, colors, idx));
-        const auto count = DFSVisit(idx, v, colors);
-
-//        cout << "Component (" << idx << "-" << count << "): ";
-        cout << "Component: ";
-        for (auto i = idx; i <= count; ++i) {
-            cout << vertices[i] << " ";
+//            cout << idxV << ": " << D[idxV]<< " > " << idxU << ": " << distance << "\n";
+            if (D[idxV] > distance) {
+                cout << "pushing: " << v << ", " << D[idxV] << ", " << distance << "\n";
+                D[idxV] = distance;
+                PQElement pqe(v, distance);
+                Q.push(pqe);
+                P[idxV] = u;
+            }
         }
         cout << "\n";
-
-        idx = count + 1;
     }
-    cout << flush;
+
+    cout << "\n\n";
+
+    int m = 0;
+    cout << "\nDistances to Source: \n";
+    for (const auto &n: S) {
+        cout << n << ": " << D[m++] << "\n";
+    }
 }
