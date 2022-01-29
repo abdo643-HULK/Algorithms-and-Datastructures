@@ -1,9 +1,9 @@
 use std::{
-    cmp::PartialEq,
+    cmp::{Ordering, PartialEq},
     io::{self, Write},
 };
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, Hash)]
 pub struct Vertex {
     pub name: String,
 }
@@ -20,39 +20,63 @@ impl PartialEq for Vertex {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+impl Ord for Vertex {
+    fn cmp(&self, other: &Self) -> Ordering {
+        other.name.cmp(&self.name)
+    }
+}
+
+impl PartialOrd for Vertex {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+#[derive(Debug, Clone, PartialEq)]
 enum Color {
     WHITE,
     GRAY,
     BLACK,
 }
 
-#[derive(Debug)]
-struct Edge {
-    incoming: Vertex,
+#[derive(Debug, Clone, Eq)]
+pub(crate) struct Edge {
+    r#in: Vertex,
     out: Vertex,
     weight: u32,
 }
 
 impl Edge {
-    pub fn new(incoming: Vertex, out: Vertex, weight: u32) -> Edge {
-        Edge {
-            incoming,
-            out,
-            weight,
-        }
+    pub fn new(r#in: Vertex, out: Vertex, weight: u32) -> Edge {
+        Edge { r#in, out, weight }
     }
-}
-
-pub struct MyGraph {
-    edges: Vec<Edge>,
-    vertices: Vec<Vertex>,
 }
 
 impl PartialEq for Edge {
     fn eq(&self, other: &Self) -> bool {
-        self.incoming == other.incoming && self.out == other.out
+        self.r#in == other.r#in && self.out == other.out
+            || self.r#in == other.out && self.out == other.r#in
     }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct MyGraph {
+    pub(crate) edges: Vec<Edge>,
+    pub(crate) vertices: Vec<Vertex>,
+}
+
+pub trait Graph {
+    fn insert_vertex(&mut self, v: Vertex) -> isize;
+    fn insert_edge(&mut self, r#in: Vertex, out: Vertex, weight: u32) -> bool;
+    fn is_connected(&self) -> bool;
+    fn is_cyclic(&self) -> bool;
+    fn get_number_of_vertices(&self) -> usize;
+    fn get_vertices(&self) -> Vec<Vertex>;
+    fn get_edge_weight(&self, r#in: &Vertex, out: &Vertex) -> i64;
+    fn get_adjacency_matrix(&self) -> Vec<Vec<i64>>;
+    fn get_adjacency_list(&self, r#in: &Vertex) -> Vec<Vertex>;
+    fn get_number_of_components(&self) -> usize;
+    fn print_components(&self);
 }
 
 impl MyGraph {
@@ -69,7 +93,7 @@ impl MyGraph {
         let idx = self.vertices.iter().position(|other| other == v);
 
         match idx {
-            Some(idx) => colors[idx],
+            Some(idx) => colors[idx].clone(),
             None => Color::WHITE,
         }
     }
@@ -114,11 +138,11 @@ impl Graph for MyGraph {
         return (self.vertices.len() - 1).try_into().unwrap();
     }
 
-    fn insert_edge(&mut self, incoming: Vertex, out: Vertex, weight: u32) -> bool {
-        self.insert_vertex(Vertex::new(incoming.name.clone()));
+    fn insert_edge(&mut self, r#in: Vertex, out: Vertex, weight: u32) -> bool {
+        self.insert_vertex(Vertex::new(r#in.name.clone()));
         self.insert_vertex(Vertex::new(out.name.clone()));
 
-        let edge = Edge::new(incoming, out, weight);
+        let edge = Edge::new(r#in, out, weight);
 
         if self.edges.contains(&edge) {
             return false;
@@ -137,11 +161,9 @@ impl Graph for MyGraph {
         self.vertices.clone()
     }
 
-    fn get_edge_weight(&self, incoming: &Vertex, out: &Vertex) -> i64 {
-        let edge = self
-            .edges
-            .iter()
-            .find(|e| e.incoming == (*incoming) && e.out == (*out));
+    fn get_edge_weight(&self, r#in: &Vertex, out: &Vertex) -> i64 {
+        let tmp_edge = Edge::new(r#in.clone(), out.clone(), 0);
+        let edge = self.edges.iter().find(|e| (*e) == &tmp_edge);
 
         match edge {
             Some(edge) => edge.weight.try_into().unwrap(),
@@ -162,10 +184,10 @@ impl Graph for MyGraph {
         matrix
     }
 
-    fn get_adjacency_list(&self, incoming: &Vertex) -> Vec<Vertex> {
+    fn get_adjacency_list(&self, r#in: &Vertex) -> Vec<Vertex> {
         self.vertices
             .iter()
-            .filter(|out| self.get_edge_weight(incoming, out) != -1)
+            .filter(|out| self.get_edge_weight(r#in, out) != -1)
             .map(|v| v.clone())
             .collect()
     }
@@ -217,13 +239,14 @@ impl Graph for MyGraph {
 
         let mut count = 0;
         let mut is_cyclic = false;
+        let mut _tmp = 0;
 
         for v in &self.vertices {
             if self.color_of_vertex(v, &colors) != Color::WHITE {
                 continue;
             }
 
-            self.dfs_visit(v, &mut colors, &mut count, &mut is_cyclic);
+            self.dfs_visit(v, &mut colors, &mut _tmp, &mut is_cyclic);
             count += 1;
         }
 
@@ -256,18 +279,4 @@ impl Graph for MyGraph {
 
         io::stdout().flush().unwrap();
     }
-}
-
-pub trait Graph {
-    fn insert_vertex(&mut self, v: Vertex) -> isize;
-    fn insert_edge(&mut self, incoming: Vertex, out: Vertex, weight: u32) -> bool;
-    fn is_connected(&self) -> bool;
-    fn is_cyclic(&self) -> bool;
-    fn get_number_of_vertices(&self) -> usize;
-    fn get_vertices(&self) -> Vec<Vertex>;
-    fn get_edge_weight(&self, incoming: &Vertex, out: &Vertex) -> i64;
-    fn get_adjacency_matrix(&self) -> Vec<Vec<i64>>;
-    fn get_adjacency_list(&self, incoming: &Vertex) -> Vec<Vertex>;
-    fn get_number_of_components(&self) -> usize;
-    fn print_components(&self);
 }

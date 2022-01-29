@@ -21,7 +21,7 @@ class AVLTree {
         AVLNode *left, *right, *parent;
         int node_height;
 
-        AVLNode(K k) : element(k), node_height(0), parent(nullptr), left(nullptr), right(nullptr) {};
+        AVLNode(K k) : element(k), node_height(1), parent(nullptr), left(nullptr), right(nullptr) {};
 
         bool operator<(const AVLNode &other) {
             return element < other.element;
@@ -54,7 +54,7 @@ private:
     // in updateHeight we need to return -1
     // if the node is empty
     int getHeight(AVLNode *node) {
-        return node == nullptr ? -1 : node->node_height;
+        return node == nullptr ? 0 : node->node_height;
     }
 
     // Updates the height of the nodes

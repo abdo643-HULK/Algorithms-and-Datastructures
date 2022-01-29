@@ -1,6 +1,32 @@
 use exercises::ex9::{Graph, MyGraph, Vertex};
 
 #[test]
+fn marco_test() {
+    let mut graph = MyGraph::new();
+    let vertices1 = vec![
+        Vertex::new("1".to_string()),
+        Vertex::new("2".to_string()),
+        Vertex::new("3".to_string()),
+        Vertex::new("4".to_string()),
+        Vertex::new("5".to_string()),
+        Vertex::new("6".to_string()),
+    ];
+
+    for v in &vertices1 {
+        graph.insert_vertex(v.clone());
+    }
+
+    graph.insert_edge(vertices1[0].clone(), vertices1[1].clone(), 1);
+    graph.insert_edge(vertices1[0].clone(), vertices1[2].clone(), 3);
+    graph.insert_edge(vertices1[1].clone(), vertices1[3].clone(), 2);
+    graph.insert_edge(vertices1[2].clone(), vertices1[5].clone(), 4);
+
+    println!("Connected Components: {}", graph.get_number_of_components());
+
+    graph.print_components();
+}
+
+#[test]
 fn graph_test() {
     let mut graph = MyGraph::new();
     let vertices1 = vec![
@@ -27,14 +53,6 @@ fn graph_test() {
         graph.get_number_of_vertices()
     );
 
-    let vertices1 = vec![
-        Vertex::new("0".to_string()),
-        Vertex::new("1".to_string()),
-        Vertex::new("2".to_string()),
-        Vertex::new("3".to_string()),
-        Vertex::new("4".to_string()),
-        Vertex::new("9".to_string()),
-    ];
     graph.insert_edge(vertices1[0].clone(), vertices1[1].clone(), 1);
     graph.insert_edge(vertices1[0].clone(), vertices1[3].clone(), 2);
     graph.insert_edge(vertices1[1].clone(), vertices1[2].clone(), 3);

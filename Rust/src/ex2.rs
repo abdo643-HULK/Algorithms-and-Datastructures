@@ -51,14 +51,14 @@ pub trait List {
     ///
     /// ## Return
     /// element  value, -1  if  index  is  out  of  bounds
-    fn getAt(&self, index: i32) -> i32;
+    fn get_at(&self, index: i32) -> i32;
 
     /**
      * remove  element  at  position  index
      * @param index - 0 or bigger
      * @return  element  value, -1  if  index  is  out  of  bounds
      */
-    fn removeAt(&mut self, index: i32) -> i32;
+    fn remove_at(&mut self, index: i32) -> i32;
 
     /**
      * Checks if the list contains a certain value
@@ -72,17 +72,17 @@ pub trait List {
      * adds an element in a sorted list
      * @param val
      */
-    fn addSorted(&mut self, val: i32);
+    fn add_sorted(&mut self, val: i32);
 
     /**
      * sorts the list in ascending order: 1, 2, 3
      */
-    fn sort_ASC(&mut self);
+    fn sort_asc(&mut self);
 
     /**
      * sorts the list in descending order: 3, 2, 1
      */
-    fn sort_DES(&mut self);
+    fn sort_des(&mut self);
 
     /**
      * removes  and  deletes  all  elements  of  the  list
@@ -203,11 +203,11 @@ impl List for LinkedList {
         return -1;
     }
 
-    fn getAt(&self, index: i32) -> i32 {
+    fn get_at(&self, index: i32) -> i32 {
         return -1;
     }
 
-    fn removeAt(&mut self, index: i32) -> i32 {
+    fn remove_at(&mut self, index: i32) -> i32 {
         return -1;
     }
 
@@ -215,11 +215,11 @@ impl List for LinkedList {
         return false;
     }
 
-    fn addSorted(&mut self, val: i32) {}
+    fn add_sorted(&mut self, val: i32) {}
 
-    fn sort_ASC(&mut self) {}
+    fn sort_asc(&mut self) {}
 
-    fn sort_DES(&mut self) {}
+    fn sort_des(&mut self) {}
 
     fn print_elements(&self) {
         if matches!(self.head, Link::Nil) {

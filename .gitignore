@@ -9,3 +9,7 @@
 *.cmake
 *.zip
 cmake-build-debug/
+
+idea/
+build
+.vscode

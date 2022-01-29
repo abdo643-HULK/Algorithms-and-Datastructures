@@ -9,4 +9,5 @@ add_executable(
         UE10
         main.cpp main.hpp
         Graph.cpp Graph.hpp
-        MyVertex.hpp PQElement.hpp Geeks.cpp Geeks.hpp)
+        MyVertex.hpp PQElement.hpp
+)

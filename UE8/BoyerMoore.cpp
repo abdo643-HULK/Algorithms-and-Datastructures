@@ -8,18 +8,16 @@
 
 using namespace std;
 
-BoyerMoore::BoyerMoore(const string &pattern, string &&text) :
-        pattern(pattern),
-        text(forward<string &>(text)),
-        match(new int[pattern.length()]) {
+BoyerMoore::BoyerMoore(const string &pattern, string &&text) : pattern(pattern),
+                                                               text(forward<string &>(text)),
+                                                               match(new int[pattern.length()]) {
     calculateLast();
     calculateMatchTable();
 }
 
-BoyerMoore::BoyerMoore(const string &pattern, const string &text) :
-        pattern(pattern),
-        text(text),
-        match(new int[pattern.length()]) {
+BoyerMoore::BoyerMoore(const string &pattern, const string &text) : pattern(pattern),
+                                                                    text(text),
+                                                                    match(new int[pattern.length()]) {
     calculateLast();
     calculateMatchTable();
 }
@@ -28,7 +26,7 @@ void BoyerMoore::calculateLast() {
     fill(begin(last), end(last), -1);
 
     int i = 0;
-    for (const auto &elem: pattern) {
+    for (const auto &elem : pattern) {
         const auto asciiCode = static_cast<uint8_t>(elem);
         last[asciiCode] = i;
         ++i;
